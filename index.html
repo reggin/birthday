@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Відлік до свята</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Unbounded:wght@600;800&display=swap&subset=cyrillic" rel="stylesheet">
+<style>
+:root{--bg:#f6efff;--bg2:#eadfff;--ink:#2a1250;--mut:#5f4585;--card:#ffffffb8;--mag:#c81e92;--vio:#6d28d9;--cya:#0a8fa0;--gold:#b87800;--line:#7c3aed66;--star:#7c3aed;--beam:.28;--focus:#6d28d9;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0522;--bg2:#1f0c42;--ink:#fff3ff;--mut:#cbb5f2;--card:#ffffff14;--mag:#ff3ec9;--vio:#a06bff;--cya:#27f0ff;--gold:#ffd24a;--line:#a06bff77;--star:#fff;--beam:.5;--focus:#ffd24a}}
+:root[data-theme="dark"]{--bg:#0e0522;--bg2:#1f0c42;--ink:#fff3ff;--mut:#cbb5f2;--card:#ffffff14;--mag:#ff3ec9;--vio:#a06bff;--cya:#27f0ff;--gold:#ffd24a;--line:#a06bff77;--star:#fff;--beam:.5;--focus:#ffd24a}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;min-height:100%;background:radial-gradient(120% 60% at 50% 0,var(--bg2),var(--bg));color:var(--ink);font:700 16px/1.4 Nunito,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+[hidden]{display:none!important}
+button{font-family:inherit;color:inherit}
+.bg{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.st{position:absolute;inset:0;background-image:radial-gradient(2px 2px at 20px 30px,var(--star),transparent),radial-gradient(1.5px 1.5px at 90px 80px,var(--gold),transparent),radial-gradient(2px 2px at 150px 140px,var(--star),transparent),radial-gradient(1.5px 1.5px at 60px 170px,var(--cya),transparent);background-size:200px 200px;animation:tw 3s ease-in-out infinite alternate}
+.st.b{background-size:260px 260px;background-position:70px 40px;animation-duration:4.4s;animation-delay:1.5s}
+.beam{position:absolute;top:-4vh;width:46vmax;height:120vh;margin-left:-23vmax;transform-origin:50% 0;clip-path:polygon(47% 0,53% 0,100% 100%,0 100%);opacity:var(--beam);animation:sway 6s ease-in-out infinite alternate}
+.beam:nth-child(3){left:15%;background:linear-gradient(#ff3ec9,transparent 75%)}
+.beam:nth-child(4){left:50%;background:linear-gradient(#27c8ff,transparent 75%);animation-delay:-3s;animation-duration:7.5s}
+.beam:nth-child(5){left:85%;background:linear-gradient(#ffd24a,transparent 75%);animation-delay:-1.5s}
+main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:0 16px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0 4px}
+h1{margin:0;font:800 clamp(17px,5vw,24px)/1.2 Unbounded,sans-serif;overflow-wrap:anywhere}
+.tools{display:flex;gap:6px;flex:none}
+.tools button{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--card);font-size:20px;cursor:pointer}
+.pv{display:inline-block;font-size:13px;color:var(--mut);margin:0 0 6px}
+.led{position:relative;overflow:hidden;margin-top:10px;padding:18px 12px 24px;border-radius:20px;text-align:center;color:#fff;background:#0a0320;border:2px solid #27f0ff;box-shadow:0 0 20px #27f0ff88,inset 0 0 36px #ff3ec940}
+.led::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,#0006 0 2px,transparent 2px 4px)}
+.bar{height:8px;margin:-18px -12px 14px;background:repeating-linear-gradient(90deg,#ff3ec9 0 10px,#a06bff 10px 20px,#27f0ff 20px 30px,#ffd24a 30px 40px);animation:march 1s linear infinite}
+.chip{display:inline-block;padding:6px 16px;border-radius:999px;font:800 14px Unbounded,sans-serif;background:linear-gradient(90deg,#ff3ec9,#a06bff);box-shadow:0 0 14px #ff3ec9}
+.lbl{margin-top:10px;font-size:19px;font-weight:800;color:#ffd24a}
+.num{font:800 clamp(120px,42vw,220px)/1 Unbounded,sans-serif;color:transparent;-webkit-text-stroke:3px #27f0ff;filter:drop-shadow(0 0 10px #27f0ff) drop-shadow(0 0 26px #ff3ec9aa)}
+.wd{font:800 clamp(22px,7vw,30px) Unbounded,sans-serif;color:#ff7be0;text-shadow:0 0 14px #ff3ec9}
+.hint{margin:12px 0 0;font-size:17px;color:#eadfff}
+.bt{margin:14px 0 6px;font:800 clamp(22px,7.2vw,34px)/1.25 Unbounded,sans-serif;text-shadow:0 0 14px #ff3ec9,0 0 26px #27f0ff;overflow-wrap:anywhere}
+.row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:12px}
+.btn{min-height:48px;padding:12px 20px;border:0;border-radius:999px;font:700 14px Unbounded,sans-serif;color:#fff;cursor:pointer;background:linear-gradient(90deg,var(--mag),var(--vio));box-shadow:0 4px 16px #0004}
+.btn.alt{background:transparent;border:2px solid var(--vio);color:var(--ink);box-shadow:none}
+.card{margin-top:16px;padding:16px;border-radius:22px;background:var(--card);border:1.5px solid var(--line);backdrop-filter:blur(6px)}
+h2{margin:0 0 4px;font:800 17px Unbounded,sans-serif}
+.sub{margin:0 0 12px;color:var(--mut);font-size:15px}
+.trk{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;font-size:23px}
+.trk span{width:32px;height:32px;display:grid;place-items:center}
+.dim{opacity:.3}.now{animation:pulse 1.4s ease-in-out infinite}
+.ban{display:block;width:100%;margin-top:16px;min-height:52px;border:0;border-radius:16px;font:800 15px Nunito,sans-serif;color:#fff;cursor:pointer;background:linear-gradient(90deg,var(--mag),var(--vio));box-shadow:0 0 18px var(--mag)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.slot{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:36px;border-radius:16px;border:2px solid var(--line);background:var(--card);cursor:pointer}
+.slot small{font-size:13px;font-weight:800;color:var(--mut)}
+.slot:disabled{opacity:.55;cursor:default}
+.slot.ready{border-color:var(--mag);box-shadow:0 0 14px var(--mag);animation:bob 1.6s ease-in-out infinite}
+.slot.done{border-color:var(--cya)}
+.slot.crown{grid-column:1/-1;aspect-ratio:auto;flex-direction:row;gap:10px;padding:14px}
+.shake{animation:shake .45s!important}
+.ov{position:fixed;inset:0;z-index:40;display:grid;place-items:center;background:#000a;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))}
+.mb{width:100%;max-width:340px;padding:24px;border-radius:24px;text-align:center;background:var(--bg2);border:2px solid var(--mag);box-shadow:0 0 30px var(--mag)}
+.mb p{font-size:18px;margin:8px 0 16px}
+.big{font-size:92px;line-height:1.1;animation:pop .5s}
+.mb input{width:100%;box-sizing:border-box;margin:12px 0;padding:12px 14px;font:800 18px Nunito,sans-serif;text-align:center;border-radius:14px;border:2px solid var(--vio);background:var(--bg);color:var(--ink)}
+.game{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;color:#fff;background:linear-gradient(#12062b,#2a0a52 60%,#4a0f5e);user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.gt{display:flex;justify-content:space-between;align-items:center;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;font:800 18px Unbounded,sans-serif}
+.gt .x{width:44px;height:44px;border-radius:50%;border:2px solid #fff6;background:#fff1;color:#fff;font-size:18px;cursor:pointer}
+.gf{position:relative;flex:1;overflow:hidden;margin-bottom:env(safe-area-inset-bottom)}
+.it{position:absolute;top:0;left:0;width:60px;height:60px;border:0;padding:0;background:none;font-size:42px;cursor:pointer;touch-action:manipulation}
+.pl{position:absolute;pointer-events:none;font:800 24px Unbounded,sans-serif;color:#ffd24a;text-shadow:0 0 10px #ff3ec9;animation:rise .7s forwards}
+.gc{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px}
+.cn{font:800 clamp(56px,20vw,100px) Unbounded,sans-serif;color:transparent;-webkit-text-stroke:3px #27f0ff;filter:drop-shadow(0 0 14px #ff3ec9)}
+.gc h2{font-size:26px}.gc p{font-size:19px;margin:4px 0}
+#fx{position:fixed;inset:0;z-index:60;pointer-events:none}
+@keyframes tw{from{opacity:.25}to{opacity:1}}
+@keyframes sway{from{transform:rotate(-17deg)}to{transform:rotate(17deg)}}
+@keyframes march{to{background-position:40px 0}}
+@keyframes pulse{50%{transform:scale(1.3)}}
+@keyframes bob{50%{transform:translateY(-4px)}}
+@keyframes shake{20%{transform:rotate(-14deg)}40%{transform:rotate(14deg)}60%{transform:rotate(-9deg)}80%{transform:rotate(9deg)}}
+@keyframes pop{from{transform:scale(.2)}70%{transform:scale(1.2)}}
+@keyframes rise{to{transform:translateY(-54px);opacity:0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"><div class="st"></div><div class="st b"></div><div class="beam"></div><div class="beam"></div><div class="beam"></div></div>
+<main id="app"></main>
+<div id="modal" class="ov" hidden></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<script>
+const $=s=>document.querySelector(s),K='bdc1',RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const STK=[['🦄','Ти — єдиноріг серед зірок!'],['🌈','Твоя усмішка яскравіша за веселку!'],['🎤','Мікрофон чекає на тебе, зірочко!'],['🪩','Ти сяєш, як діско-куля!'],['💃','Сьогодні ти танцюєш найкраще!'],['🎧','Твоя улюблена пісня вже грає!'],['🌟','Ти — головна зірка шоу!'],['🍭','Солодких снів і ще солодшого свята!'],['🧸','Ведмедик обіймає тебе міцно-міцно!'],['🎀','Ти найгарніша на всій сцені!'],['🦋','Ти легка, як метелик, і талановита!'],['🐱','Муркотливий привіт від кошеняти!'],['🍓','Ти солодка, як полуничка!'],['🎈','Повітряні кульки летять до тебе!'],['🚀','Ти злетиш до самих зірок!'],['🎸','Рок-зірка — це про тебе!'],['🪄','Чарівна паличка виконає бажання!'],['🌸','Хай кожен твій день цвіте!'],['🐼','Панда каже: ти найкраща!'],['💎','Ти цінна, як діамант!']];
+let preview=location.hash==='#birthday',S={};
+try{S=JSON.parse(localStorage.getItem(K))||{}}catch(e){S={}}
+if(S.snd===undefined)S.snd=true;
+S.opened=Array.isArray(S.opened)?S.opened:[];
+function save(){if(preview)return;try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+if(S.theme)document.documentElement.dataset.theme=S.theme;
+function calc(){const d=new Date(),y=d.getFullYear(),t=Date.UTC(y,d.getMonth(),d.getDate());let ty=y;if(Date.UTC(y,10,19)<t)ty=y+1;return{n:Math.round((Date.UTC(ty,10,19)-t)/864e5),y:ty,k:t}}
+const word=n=>{const a=n%10,b=n%100;return a==1&&b!=11?'ніч':(a>=2&&a<=4&&(b<12||b>14))?'ночі':'ночей'};
+// sound
+let AC;
+function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
+function tone(f,d=.15,type='sine',v=.07,at=0){if(!S.snd)return;const a=ac();if(!a)return;const t=a.currentTime+at,o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.02)}
+const fanfare=()=>[523,659,784,1047].forEach((f,i)=>tone(f,.2,'triangle',.07,i*.09));
+function song(){const was=S.snd;S.snd=true;let t=0;[[392,.75],[392,.25],[440,1],[392,1],[523,1],[494,2],[392,.75],[392,.25],[440,1],[392,1],[587,1],[523,2],[392,.75],[392,.25],[784,1],[659,1],[523,1],[494,1],[440,1],[698,.75],[698,.25],[659,1],[523,1],[587,1],[523,2]].forEach(([f,b])=>{tone(f,b*.4,'triangle',.08,t);t+=b*.42});S.snd=was}
+// confetti
+const cv=$('#fx'),cx=cv.getContext('2d');let P=[],rain=false,raf=0;
+function fit(){cv.width=innerWidth;cv.height=innerHeight}fit();addEventListener('resize',fit);
+const COL=['#ff3ec9','#a06bff','#27f0ff','#ffd24a','#fff'];
+function mk(x,y,vx,vy){P.push({x,y,vx,vy,c:COL[Math.random()*5|0],s:5+Math.random()*6,r:Math.random()*6})}
+function burst(n=80,x=innerWidth/2,y=innerHeight/2){if(RM)return;for(let i=0;i<n;i++){const a=Math.random()*6.28,v=3+Math.random()*9;mk(x,y,Math.cos(a)*v,Math.sin(a)*v-5)}go()}
+function go(){if(!raf)raf=requestAnimationFrame(loop)}
+function loop(){raf=0;cx.clearRect(0,0,cv.width,cv.height);if(rain&&Math.random()<.6)mk(Math.random()*cv.width,-10,Math.random()*2-1,2+Math.random()*2);P=P.filter(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.12;p.vx*=.99;p.r+=.1;cx.fillStyle=p.c;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore();return p.y<cv.height+20});if(P.length||rain)go()}
+// render
+let bday=false;
+function render(){
+ const T=calc(),N=T.n;
+ if(!preview&&(S.cy!==T.y||S.start==null)){S.cy=T.y;S.start=N;S.opened=[];save()}
+ bday=preview||N===0;
+ const start=preview?(S.start||0):S.start,slept=bday?start:Math.max(0,start-N),nm=S.name||'зірочко';
+ let hero;
+ if(bday)hero=`<div class="chip">🎂 19 листопада</div><div class="lbl">Сьогодні!</div><div class="bt">З днем народження, ${esc(nm)}!</div><div class="row"><button class="btn" data-act="song">🎵 Пісенька</button><button class="btn" data-act="conf">🎉 Ще конфеті</button></div>`;
+ else{const h=N==1?'Остання ніч! Завтра — свято!':N<=3?'Вже зовсім-зовсім скоро!':N<=7?'Менше тижня! Готуй танцювальні рухи':'Кожна ніч наближає свято';
+  hero=`<div class="chip">D-${N}</div><div class="lbl">Ще поспати</div><div class="num" aria-hidden="true">${N}</div><div class="wd">${word(N)}</div><p class="hint">${h}</p><span class="sr" hidden></span>`}
+ let trk='';
+ if(!preview&&start>0){let c='';for(let i=1;i<=start;i++)c+=i<=slept?'<span>⭐</span>':i==slept+1?'<span class="now">🌙</span>':'<span class="dim">🌙</span>';
+  trk=`<section class="card"><h2>Зоряна доріжка</h2><p class="sub">Ти вже поспала ${slept} ${word(slept)} з ${start}</p><div class="trk" role="img" aria-label="Проспано ${slept} з ${start}">${c}<span>🎂</span></div></section>`}
+ let slots='',avail=0;
+ for(let i=0;i<=start;i++){const u=bday||i<=slept,d=S.opened.includes(i);if(u&&!d)avail++;
+  slots+=d?`<button class="slot done" data-act="gift" data-i="${i}" aria-label="Наліпка">${STK[i%20][0]}</button>`:u?`<button class="slot ready" data-act="gift" data-i="${i}" aria-label="Відкрити подарунок">🎁</button>`:`<button class="slot" disabled aria-label="Ще ${i-slept} ночей">🌙<small>ще ${i-slept}</small></button>`}
+ const cd=S.opened.includes('c');if(bday&&!cd)avail++;
+ slots+=cd?`<button class="slot done crown" data-act="gift" data-i="c">👑</button>`:bday?`<button class="slot ready crown" data-act="gift" data-i="c">👑 Відкрити!</button>`:`<button class="slot crown" disabled>👑 <small>відкриється в день народження</small></button>`;
+ $('#app').innerHTML=`<header class="top"><h1>Привіт, ${esc(nm)}!</h1><div class="tools"><button data-act="name" aria-label="Змінити ім’я">✏️</button><button data-act="snd" aria-label="Звук">${S.snd?'🔊':'🔇'}</button><button data-act="theme" aria-label="Змінити тему">🌓</button></div></header>${preview?'<span class="pv">Попередній перегляд — нічого не зберігається</span>':''}<section class="led"><div class="bar"></div>${hero}</section>${avail?'<button class="ban" data-act="goto">🎁 На тебе чекає подарунок!</button>':''}${trk}<section class="card" id="album"><h2>Альбом наліпок</h2><p class="sub">Кожна ніч — новий подарунок. Пропущені не зникають!</p><div class="grid">${slots}</div></section><section class="card"><h2>Зоряна сцена</h2><p class="sub">Лови ноти й сердечка! Тільки 25 секунд.</p><p class="sub">Рекорд: ${S.best||0} · Зірок зібрано: ${S.stars||0}</p><div class="row" style="margin-top:0"><button class="btn" data-act="play">🎤 Грати</button></div></section>`;
+ rain=bday&&!RM;if(rain)go();
+}
+// modal
+let onClose=null;
+function modal(h,cb){const m=$('#modal');onClose=cb||null;m.innerHTML=`<div class="mb" role="dialog" aria-modal="true">${h}</div>`;m.hidden=false;const f=m.querySelector('input,button');f&&f.focus()}
+function closeM(){$('#modal').hidden=true;onClose&&onClose();onClose=null}
+function askName(){modal(`<div class="big">🎤</div><p id="mt">${S.name?'Як тебе звати?':'Привіт! Як тебе звати?'}</p><form id="nf"><input maxlength="20" autocomplete="off" aria-label="Ім’я" value="${esc(S.name||'')}"><div class="row"><button class="btn" type="submit">Готово</button>${S.name?'<button class="btn alt" type="button" data-m="x">Скасувати</button>':''}</div></form>`);
+ $('#nf').onsubmit=e=>{e.preventDefault();const v=e.target.querySelector('input').value.trim();if(!v)return;S.name=v;save();closeM();render()}}
+$('#modal').addEventListener('click',e=>{if(e.target.dataset.m==='x'||e.target.id==='modal'&&S.name)closeM()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#modal').hidden&&S.name)closeM()});
+$('#app').addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act;
+ if(a==='name')askName();
+ else if(a==='snd'){S.snd=!S.snd;save();render();tone(660)}
+ else if(a==='theme'){const r=document.documentElement,cur=r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');S.theme=r.dataset.theme=cur==='dark'?'light':'dark';save()}
+ else if(a==='goto')$('#album').scrollIntoView({behavior:RM?'auto':'smooth'});
+ else if(a==='song')song();
+ else if(a==='conf'){burst(140,innerWidth/2,innerHeight/3);fanfare()}
+ else if(a==='play')game();
+ else if(a==='gift'){const i=b.dataset.i,k=i==='c'?'c':+i,fresh=!S.opened.includes(k);b.classList.add('shake');tone(330,.1,'square',.04);
+  setTimeout(()=>{const r=b.getBoundingClientRect();if(fresh){S.opened.push(k);save();burst(90,r.left+r.width/2,r.top+r.height/2);fanfare()}
+   const s=k==='c'?['👑','Ти — королева сцени! З днем народження!']:STK[k%20];
+   modal(`<div class="big">${s[0]}</div><p>${s[1]}</p><button class="btn" data-m="x">Ура!</button>`,render);render()},RM?0:450)}});
+// game
+function game(){
+ const g=document.createElement('div');g.className='game';g.setAttribute('role','dialog');g.setAttribute('aria-label','Зоряна сцена');
+ g.innerHTML='<div class="gt"><button class="x" aria-label="Закрити">✕</button><span id="gs">⭐ 0</span><span id="gtm">25</span></div><div class="gf" id="gf"></div>';
+ document.body.appendChild(g);
+ const f=$('#gf'),gs=$('#gs'),gtm=$('#gtm'),cnt=document.createElement('div');cnt.className='gc';f.appendChild(cnt);
+ let score=0,items=[],alive=true,timer,rid,t0,last,nx=0;
+ const kd=e=>{if(e.key==='Escape')quit()};document.addEventListener('keydown',kd);
+ function quit(){alive=false;cancelAnimationFrame(rid);clearTimeout(timer);document.removeEventListener('keydown',kd);g.remove();render()}
+ g.querySelector('.x').onclick=quit;g.querySelector('.x').focus();
+ let k=0;const seq=['3','2','1','Шоу!'];
+ (function step(){if(!alive)return;cnt.innerHTML=`<div class="cn">${seq[k]}</div>`;tone(k<3?440:880,.2,'square',.05);k++;timer=setTimeout(k<4?step:begin,k<4?800:700)})();
+ function begin(){if(!alive)return;cnt.remove();t0=last=performance.now();rid=requestAnimationFrame(tick)}
+ function spawn(){const r=Math.random(),t=r<.1?['⭐',5]:r<.35?['💖',2]:[Math.random()<.5?'🎵':'🎶',1],b=document.createElement('button'),o={e:b,x:Math.random()*(f.clientWidth-60),y:-60};
+  b.className='it';b.textContent=t[0];b.setAttribute('aria-label','Спіймати');b.style.transform=`translate(${o.x}px,-60px)`;
+  b.addEventListener('pointerdown',ev=>{ev.preventDefault();if(o.dead)return;o.dead=true;score+=t[1];gs.textContent='⭐ '+score;
+   const q=f.getBoundingClientRect(),p=document.createElement('div');p.className='pl';p.textContent='+'+t[1];p.style.left=ev.clientX-q.left-12+'px';p.style.top=ev.clientY-q.top-30+'px';f.appendChild(p);setTimeout(()=>p.remove(),700);
+   tone(t[1]>1?988:660,.12,'triangle',.07);if(t[1]==5)tone(1319,.2,'triangle',.06,.07);b.remove();items=items.filter(z=>z!==o)});
+  f.appendChild(b);items.push(o)}
+ function tick(now){if(!alive)return;const el=(now-t0)/1000,dt=Math.min(.1,(now-last)/1000);last=now;if(el>=25)return end();
+  gtm.textContent=Math.ceil(25-el);nx-=dt;if(nx<=0){spawn();nx=Math.max(.3,.85-el*.022)}
+  const H=f.clientHeight,sp=H*(.3+el*.012);items=items.filter(o=>{o.y+=sp*dt;o.e.style.transform=`translate(${o.x}px,${o.y}px)`;if(o.y>H){o.e.remove();return false}return true});rid=requestAnimationFrame(tick)}
+ function end(){items.forEach(o=>o.e.remove());items=[];S.stars=(S.stars||0)+score;const nb=score>(S.best||0);if(nb)S.best=score;save();
+  cnt.innerHTML=`<div><div class="big">🎤</div><h2>Круто!</h2><p>Ти зібрала ${score} ⭐</p><p>Рекорд: ${S.best}${nb?' — новий! 🎉':''}</p><div class="row"><button class="btn" data-g="again">Ще раз</button><button class="btn alt" style="color:#fff" data-g="x">Готово</button></div></div>`;
+  f.appendChild(cnt);cnt.querySelector('button').focus();fanfare();if(nb)burst(120,innerWidth/2,innerHeight/3);
+  cnt.onclick=e=>{const a=e.target.dataset.g;if(a==='x')quit();else if(a==='again'){quit();game()}}}
+}
+// init
+addEventListener('hashchange',()=>{preview=location.hash==='#birthday';render()});
+let dk=calc().k;setInterval(()=>{const k=calc().k;if(k!==dk){dk=k;render()}},60000);
+render();
+if(!S.name&&!preview)askName();
+</script>
+</body>
+</html>
